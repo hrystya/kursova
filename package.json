@@ -1,0 +1,15 @@
+{
+  "name": "guitar",
+  "version": "1.0.0",
+  "description": "Simple app with Web Audio API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Khrystyna Tretyak",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-scss": "^1.4.0"
+  }
+}
