@@ -42,15 +42,6 @@ nav {
         align-items: center;
     }
 
-    .social a {
-        font-size: 24px;
-        color: #A8B5C2;
-        margin-left: 18px;
-
-        &:hover {
-            color: #566574;
-        }
-    }
 }
 
 .loading {
@@ -72,6 +63,12 @@ nav {
     position: relative;
     z-index: 2;
     overflow: hidden;
+    color: #541F5D;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 23px;
+    text-align: center;
 
     .note {
         & > div {
@@ -79,12 +76,6 @@ nav {
             width: 32px;
             border-radius: 16px;
             background-color: #D8D8D8;
-            color: #541F5D;
-            font-family: 'Roboto', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            line-height: 23px;
-            text-align: center;
             box-sizing: border-box;
             padding: 5px 0;
             box-shadow: 0 7px 8px rgba(0, 0, 0, .16);
@@ -95,6 +86,7 @@ nav {
             color: #fff;
         }
         height: 132px;
+        margin-right: 8px;
 
         &.key {
             height: 172px;
@@ -113,12 +105,12 @@ nav {
             margin-left: 8px;
         }
 
-        &:not(:last-child) > div {
-            margin-right: 8px;
-        }
-
         span {
             font-size: 0.7em;
+        }
+
+        p {          
+          margin-top: -25px;
         }
     }
 }
@@ -141,7 +133,7 @@ nav {
     }
 
     .circle {
-        background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/355309/switch.png");
+        background-image: url("../img/switch.png");
         background-size: 100%;
         background-repeat: no-repeat;
         width: 5vw;
@@ -195,7 +187,7 @@ nav {
 }
 
 body {
-    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/355309/bluesman_background.svg), linear-gradient(-180deg, #242150 5%, #572250 91%);
+    background-image: url("../img/bluesman_background.svg"), linear-gradient(-180deg, #242150 5%, #572250 91%);
     background-size: cover;
     background-position: center;
     margin: 0;

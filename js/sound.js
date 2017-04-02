@@ -1,4 +1,3 @@
-'use strict';
 class Guitar {
 
     constructor(context, buffer) {
@@ -42,15 +41,15 @@ class Buffer {
         request.responseType = 'arraybuffer';
         let thisBuffer = this;
         request.onload = function() {
-          // Safari doesn't support promise based syntax
-          thisBuffer.context
-            .decodeAudioData(request.response, function(buffer) {
-              thisBuffer.buffer[index] = buffer;
-              updateProgress(thisBuffer.urls.length);
-              if(index == thisBuffer.urls.length-1) {
-                thisBuffer.loaded();
-              }
-            });
+            // Safari doesn't support promise based syntax
+            thisBuffer.context
+                .decodeAudioData(request.response, function(buffer) {
+                    thisBuffer.buffer[index] = buffer;
+                    updateProgress(thisBuffer.urls.length);
+                    if (index == thisBuffer.urls.length - 1) {
+                        thisBuffer.loaded();
+                    }
+                });
         };
         request.send();
     };
@@ -70,7 +69,7 @@ class Buffer {
     }
 
     getSound(index) {
-        return sounds[index];
+        return this.buffer[index];
     }
 
 }
@@ -88,6 +87,11 @@ let loaded = false;
 
 function playGuitar() {
     let index = parseInt(this.dataset.note) + preset;
+    guitar = new Guitar(context, buffer.getSound(index));
+    guitar.play();
+}
+
+function playGuitarWithKeyBoard(index) {
     guitar = new Guitar(context, buffer.getSound(index));
     guitar.play();
 }
@@ -139,8 +143,37 @@ let buttons = document.querySelectorAll('.notes .note');
 buttons.forEach(button => {
     button.addEventListener('mouseenter', playGuitar.bind(button));
     button.addEventListener('mouseleave', stopGuitar);
-})
+});
 
+document.body.addEventListener('keydown', displayKeyCode);
+document.body.addEventListener('keyup', () => {
+  stopGuitar();
+});
+const letters = [
+  'A',
+  'S',
+  'D',
+  'F',
+  'Z',
+  'X',
+  'C',
+  'H',
+  'J',
+  'K',
+  'L',
+  'V',
+  'B',
+  'N',
+  'M',
+];
+function displayKeyCode(evt) {
+    const charCode = (evt.which) ? evt.which : event.keyCode;
+    const index = letters.indexOf(String.fromCharCode(charCode));
+    if (index >= 0) {
+      playGuitarWithKeyBoard(index);
+    }
+    return false;
+}
 
 let audio = document.querySelector('audio');
 let play = document.querySelector('.play');
@@ -179,3 +212,4 @@ function pauseTrack() {
     play.querySelector('.pause-icon').style.display = "none";
     play.querySelector('.play-icon').style.display = "block";
 }
+console.log("[DEBUG]: reloaded");
