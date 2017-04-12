@@ -9,6 +9,7 @@ const babel = require('gulp-babel');
 const browserSync = require('browser-sync');
 const nodemon = require('gulp-nodemon');
 const imagemin = require('gulp-imagemin');
+const sourcemaps = require('gulp-sourcemaps');
 
 //precess and move images to public/img
 gulp.task('images', () =>
@@ -20,13 +21,15 @@ gulp.task('images', () =>
 //compile scss files and move them to public/css
 gulp.task('styles', () => {
     gulp.src('scss/*.scss')
-        .pipe(sass().on('error', sass.logError))
-        .pipe(cleanCSS({
-            debug: true
-        }, function(details) {
-            console.log(details.name + ': ' + details.stats.originalSize);
-            console.log(details.name + ': ' + details.stats.minifiedSize);
-        }))
+        .pipe(sourcemaps.init())
+          .pipe(sass().on('error', sass.logError))
+          .pipe(cleanCSS({
+              debug: true
+          }, function(details) {
+              console.log(details.name + ': ' + details.stats.originalSize);
+              console.log(details.name + ': ' + details.stats.minifiedSize);
+          }))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/css'))
         .pipe(browserSync.stream());
 });
@@ -82,5 +85,15 @@ gulp.task('nodemon', function(cb) {
     });
 });
 
+//move min jquery, bootstrap files to public/libs
+gulp.task('libs', () => {
+    gulp.src([
+        'node_modules/bootstrap/dist/css/bootstrap.min.css',
+        'node_modules/bootstrap/dist/js/*.min.js',
+        'node_modules/jquery/dist/jquery.min.js'
+        ])
+        .pipe(gulp.dest('public/libs'));
+});
+
 //default task
-gulp.task('default', ['browser-sync']);
+gulp.task('default', ['browser-sync', 'libs']);
