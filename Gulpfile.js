@@ -10,6 +10,7 @@ const browserSync = require('browser-sync');
 const nodemon = require('gulp-nodemon');
 const imagemin = require('gulp-imagemin');
 const sourcemaps = require('gulp-sourcemaps');
+const clean = require('gulp-clean');
 
 //precess and move images to public/img
 gulp.task('images', () =>
@@ -97,3 +98,25 @@ gulp.task('libs', () => {
 
 //default task
 gulp.task('default', ['browser-sync', 'libs']);
+
+//moves static files to dist
+const folders = ['public/**/*'];
+gulp.task('staticDist', ['scripts', 'styles', 'images', 'libs'], () => {
+    return gulp.src(folders, { base: '.' })               
+        .pipe(gulp.dest('./dist'));
+});
+
+// Clean
+gulp.task('clean', function() {
+  return gulp.src('dist/**/*', {read: false})
+        .pipe(clean());
+});
+
+//dist
+gulp.task('dist', ['clean','staticDist'], () => {
+    gulp.src([
+        './app.js',
+        './*.html'
+    ])
+    .pipe(gulp.dest('dist'));
+})

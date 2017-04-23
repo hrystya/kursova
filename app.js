@@ -1,7 +1,8 @@
 'use strict';
-
+const PORT = 5000;
 // simple express server
 console.log("starting server...");
+console.info("http://localhost:" + PORT);
 var express = require('express');
 var app = express();
 var router = express.Router();
@@ -23,5 +24,8 @@ app.get('/history', function(req, res) {
 app.get('/main', function(req, res) {
     res.sendfile('index.html');
 });
+app.get('/musician', function(req, res) {
+    res.sendfile('musician.html');
+});
 
-app.listen(5000);
+app.listen(PORT);
