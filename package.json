@@ -2,8 +2,12 @@
   "name": "guitar",
   "version": "1.0.0",
   "description": "Simple app with Web Audio API",
+  "engines": {
+    "node": "6.10.2"
+  },
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Khrystyna Tretyak",

@@ -116,7 +116,9 @@ gulp.task('clean', function() {
 gulp.task('dist', ['clean','staticDist'], () => {
     gulp.src([
         './app.js',
-        './*.html'
+        './*.html',
+        './Dockerfile',
+        '*.json'
     ])
     .pipe(gulp.dest('dist'));
 })
